@@ -6,6 +6,11 @@ David Solomon*
 
 ## Chapter 1. Concepts and Tools
 
+### Introduction
+
+- **OneCore** - Converged kernel, drivers and other base binaries for all hardware platforms (PC, Xbox, IoT devices...);
+    since Windows 10
+
 ### APIs
 
 - Native API (Native system services / system calls) - undocumented, underlying services in the OS that
@@ -69,11 +74,3 @@ David Solomon*
 | Tool | Description |
 | ---- | ----------- |
 | ver  | Print current Windows version |
-| tlist | 
-
-## Code names
-
-- Windows CE - Microsoft's real-time OS
-- OneCore - Converged kernel, driver and other base
-    binaries for all hardware platforms (PC, Xbox,
-    IoT devices...); since Windows 10
