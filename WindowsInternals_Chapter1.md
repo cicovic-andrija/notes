@@ -112,23 +112,44 @@ David Solomon*
 - In hypervisor, kernel code is running in a less priviledged VTL than the VBS and other
     services the hypervisor is running, so even a kernel crash cannot affect the hypervisor
 
-## Environment Variables
+### Firmware
 
-| Variable | Purpose |
-| -------- | ------- |
-| _NT_SYMBOL_PATH | List of symbol paths that various tools (Process Explorer, Debugging Tools...) automatically look for |
+- System firmware, which on certified systems must be based on UEFI, ensures the authenticity of
+    boot-related software. Windows updates now also carry firmware updates
+- UEFI (www.uefi.org)
+- Trusted Platform Module (TPM)
 
-## Graphical Tools
+### Objects and handles
 
-| Tool | Description |
-| ---- | ----------- |
-| winver  | Display current Windows version info |
-| taskmgr | Windows Task Manager |
-| perfmon | Performance Monitor |
-| procexp / procexp64 | Process Explorer by Sysinternals |
+- *Kernel object* - a run-time instance of an object type, with associated functions and state
+- Not all data structures in Windows are objects, only data that needs to be shared, protected, named
+    or made visible to user-mode programs
+- Handle - a reference to an object
 
-## Command-line Tools
+### Security
 
-| Tool | Description |
-| ---- | ----------- |
-| ver  | Print current Windows version |
+- Core security capabilities of Windows:
+    - Discretionary and mandatory protection for all shareable system objects
+    - Security auditing
+    - User authentication at logon
+    - Prevention of unauthorized or invalid access to system resources
+- Access control:
+    - Discretionary access - owners of objects grant or deny access to others
+        - Improved further with attribute-based access control (aka Dynamic Access Control)
+    - Privileged access control - ensure that an object can be accessed if its owner is not available
+    - Mandatory integrity control - protect objects that are being accessed from within the same user account
+
+### Registry
+
+- Centralized system database: configuration for system bootstrap, system-wide software settings, the
+    security database etc.
+
+### Unicode
+
+- Windows is different from other operating systems, because it uses 16-bit Unicode encoding,
+    specifically UTF-16LE
+- Each Unicode character is encoded as a two-byte (16-bit) little-endian value
+- Many Windows functions that accept string parameters have two entry points: Unicode (wide/16-bit) and
+    ANSI (narrow/8-bit) version; this is because many programs deal with 8-bit character strings
+- For example, CreateFile function from Windows API expands either to CreateFileA or CreateFileW, where
+    A stands for ANSI, and W stands for wide (expansion is based on a compilation constant UNICODE)
