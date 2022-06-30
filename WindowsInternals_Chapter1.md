@@ -1,6 +1,4 @@
-# Notes on: Windows Internals
-
-# Windows Internals Seventh Edition Part 1
+## Windows Internals Seventh Edition Part 1
 *by Pavel Yosifovich, Alex Ionescu, Mark Russinovich,
 David Solomon*
 
@@ -79,7 +77,7 @@ David Solomon*
 - On 32-bit x86 systems (4GB VAS), lower half of addresses are private to process, and upper half are OS's
     virtual addresses, although this can be changed up to 3GB for the process and 1GB for the OS. Mappings
     for the upper half are mostly the same for all processes because they map to the kernel-owned memory
-- On 32-bit x86 systems, AWE (Address Windowing Extensions) allow 32-bit programs to allocate up to 64GB
+- On 32-bit x86 systems, AWE (Address Windowing Extensions) allows 32-bit programs to allocate up to 64GB
     of physical memory and map "windows" of it into its 2GB address space
 - On 64-bit systems, theoretical limit of the VAS is is 16EB, but 64-bit hardware limits VAS to smaller
     sizes. On Windows 8.1 and newer, 128TB is reserved for process's private use, and 128TB for OS use

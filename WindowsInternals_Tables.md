@@ -15,7 +15,7 @@
 | procexp | Process Explorer by Sysinternals |
 | regedit | Registry Editor |
 | windbg  | User-mode and kernel-mode debugger |
-| livekd  | LiveKd by Sysinternals debugger launcher for local kernel debugging |
+| livekd  | LiveKd by Sysinternals (debugger launcher for local kernel debugging) |
 
 ## Command-line Tools
 
