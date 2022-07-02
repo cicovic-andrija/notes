@@ -58,6 +58,33 @@
 
 ## Ownership
 
+- Rust does not have a garbage collector.
+- Each value in Rust has an owner.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped automatically.
+- Types that deal with dynamic memory implement a special function `drop`,
+    which the runtime calls automatically when the owner goes out of scope.
+- Runtime will never make a "shallow" copy of data types that allocate dynamic memory,
+    it will perform a move operation, making the original owner invalid.
+- Runtime will never automatically create a "deep" copy of data - any automatic
+    copying can be assumed to be inexpensive.
+- "Deep" copy must be implemented by a programmer - `clone` function by convention.
+- Values of types that store all data on the stack can be copied between variables.
+    These types implement the `Copy` trait, provided by the language.
+- Data type annotation prefixed with a `&` declares a reference.
+- Create a reference to borrow data without giving ownership away.
+- The scope of a reference ends at the last point where reference is used, thanks to
+    Non-Lexical Lifetime (NLL) analysis done by the compiler.
+- References don't have ownership of the data, they are read-only by default,
+    and the referenced value will not be dropped once reference goes out of scope.
+- Prefix `&mut` creates a mutable reference, which are not allowed to co-exist with
+    any other references (mutable or immutable) that are still in-scope.
+- Runtime guarantees that all references refer to valid data.
+- Use slices (special kind of reference) to reference a contiguous sequence of elements
+    in a collection.
+- Notation `[s..e]` refers to elements starting with index `s` and ending with index `e-1`.
+- Notations `[..e]` and `[s..]` start with `0` and end with data length, respectively.
+
 ## Structs
 
 ## Enums and Pattern Matching
