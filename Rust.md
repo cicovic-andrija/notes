@@ -87,6 +87,31 @@
 
 ## Structs
 
+- Use `struct` to define a new struct data type.
+- Use the dot notation to access individual fields.
+- Struct instances can be mutable, but there is no way to mark only certain fields
+    as mutable.
+- Use field init. shorthand to initialize struct fields with same-name variables.
+- Use the struct update syntax `..struct1` to create a new struct instance from
+    an existing one.
+- Use tuple structs to strongly type tuples: `struct Point(i32, i32);`.
+- Use unit-like structs to define types without state: `struct AlwaysEqual;`.
+- Structs can contain references, but then instances require a lifetime parameter.
+- Use the `impl` keyword to start an implementation block for
+    a data type: `impl Point {}`.
+- There can be multiple `impl` blocks for the same type.
+- Use `self` / `&self` / `&mut self` as a first function parameter to define a method
+    that can be called on a struct instance.
+- The `self` shorthand is an alias for `self: Self`, where `Self` is itself an alias
+    of a type that the `impl` block is for.
+- Use the dot notation to call a method on an instance. Rust uses automatic referencing
+    and dereferencing to call a method that takes ownership, or a reference, or a mutable
+    reference - call syntax is always the same.
+- It's possible to have a method with the same name as one of the struct's fields.
+- Non-method functions defined in an `impl` block are called associated functions; they
+    don't operate on instance level like methods, but are associated with the whole type.
+- Use the `Type1::function1()` notation to call an associated function.
+
 ## Enums and Pattern Matching
 
 ## Packages, Crates, and Modules
