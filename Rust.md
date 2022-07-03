@@ -134,7 +134,14 @@
     `if let Some(n) = optionN {  }`. Note that by using the `if let` the exhaustive checking
     that `match` enforces is lost. The `else` block is supported with `if let`.
 
-## Packages, Crates, and Modules
+## Rust Tools and The Module System
+
+- Rust installation and upgrade tool: `rustup`.
+- Compiler: `rustc`.
+- Advanced build system and package manager: `cargo`.
+- The module system includes concepts such as scope, packages, crates, modules, paths etc.
+- The module system is closely tied to the `cargo` build system and package manager.
+- 
 
 ## Collections
 
