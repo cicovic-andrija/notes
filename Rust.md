@@ -2,6 +2,7 @@
 
 - Compiled, statically typed language.
 - Expression-based language.
+- No concept of a null value exists in the language.
 
 ## Common Programming Concepts
 
@@ -46,7 +47,7 @@
 - Naming convention: functions are named using snake_case.
 - Function parameters and return type must have type annotations:
     `fn f(a: i32, c: char) -> i32 {}`.
-- Use the `if`/`else` expression for conditional branching: `let n = if b { 1 } else { 2 };`.
+- Use the `if` / `else` expression for conditional branching: `let n = if b { 1 } else { 2 };`.
 - Use the `loop` (infinite), `while` (conditional) and `for` (iteration) keywords for
     various kinds of loops.
 - Use the `break` statement to break out of the (innermost) loop.
@@ -87,7 +88,7 @@
 
 ## Structs
 
-- Use `struct` to define a new struct data type.
+- Use the `struct` keyword to define a new struct data type.
 - Use the dot notation to access individual fields.
 - Struct instances can be mutable, but there is no way to mark only certain fields
     as mutable.
@@ -97,8 +98,7 @@
 - Use tuple structs to strongly type tuples: `struct Point(i32, i32);`.
 - Use unit-like structs to define types without state: `struct AlwaysEqual;`.
 - Structs can contain references, but then instances require a lifetime parameter.
-- Use the `impl` keyword to start an implementation block for
-    a data type: `impl Point {}`.
+- Use the `impl` keyword to start an implementation block for a data type: `impl Point {}`.
 - There can be multiple `impl` blocks for the same type.
 - Use `self` / `&self` / `&mut self` as a first function parameter to define a method
     that can be called on a struct instance.
@@ -113,6 +113,26 @@
 - Use the `Type1::function1()` notation to call an associated function.
 
 ## Enums and Pattern Matching
+
+- Use the `enum` keyword to define an enumeration type: `enum IPAddrType { V4, V6 }`.
+- Use the `Enum1::variant1` notation to specify an enum variant in code.
+- Enum variants can have an associated value of a specific type:
+    `enum IPAddr { V4(String) }`. Different variants of the same enum can have
+    associated values of different data types.
+- There is a variety of ways to specify the data type of an enum variant.
+- Methods can be written for enums, the same way as for structs.
+- Use the `Option<T>` generic enum provided by the standard library, and included in
+    the prelude together with its variants `None` and `Some(T)`, for null handling.
+- Use the `match` control flow structure to execute code blocks based on an expressive
+    pattern matching mechanism and compiler-time safety checks to validate that all possible
+    cases are handled.
+- Each `match` arm is an expression, and the result of the executed arm will be the result
+    of the whole `match` expression.
+- Arms of the `match` expression are evaluated in order, and the first one that matches
+    the given expression will be executed.
+- Use the `if let` notation to match only one pattern and ignore the rest:
+    `if let Some(n) = optionN {  }`. Note that by using the `if let` the exhaustive checking
+    that `match` enforces is lost. The `else` block is supported with `if let`.
 
 ## Packages, Crates, and Modules
 
