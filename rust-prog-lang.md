@@ -140,8 +140,47 @@
 - Compiler: `rustc`.
 - Advanced build system and package manager: `cargo`.
 - The module system includes concepts such as scope, packages, crates, modules, paths etc.
-- The module system is closely tied to the `cargo` build system and package manager.
-- 
+- The module system is closely tied to the `cargo` build system.
+- Package consists of one or more crates and a `Cargo.toml` crate descriptor.
+- Crate can be built into a binary executable (contain the `main` function) or into a library.
+- Package can contain at most one library crate.
+- Crate root is a source file that the compiler starts from and makes up the root module of the create.
+- By convention, `src/main.rs` is the crate root of the binary crate that has tha same name as the package.
+- By convention, `src/lib.rs` is the crate root of the library crate that has tha same name as the package.
+- Package can have multiple binary crates by placing files in the `src/bin` directory, each file
+    will be a crate root for a separate binary crate.
+- Modules let the programmer control the organization, scope and privacy of paths.
+- To declare a module `module1`, in the crate root use `mod module1;` / `mod module1 {}`
+    The compiler will look for module code in three places: 1) inline, in the block of code following the
+    declaration, 2) in `src/module1.rs`, 3) in `src/module1/mod.rs`. 
+- To declare a submodule `sub1`, in any file other than the crate root use `mod sub1;` / `mod sub1 {}`.
+    The compiler will look for code in three places: 1) inline, in the block of code following the
+    declaration, 2) in `src/module1/sub1.rs`, 3) in `src/module1/sub1/mod.rs`.
+- Declaring a module once, somewhere in the module tree, is enough for the compiler to know that that
+    module needs to be built.
+- Path is a full name of an identifier, e.g. type, for example: `crate::module1::sub1::Type1`.
+- All identifiers in a module are private from it's parent module's perspective, and cannot be accessed
+    with its path by default. However, identifiers in a parent module are accessible by default from
+    child modules.
+- Use `pub mod` instead of `mod` to make the module public, so parent modules can try to refer to it.
+- Use the `pub` keyword before any declaration to make the identifier public.
+- Making a module public does not make any identifier in it public, it must be done explicitly.
+- Making a struct public doesn't make any of its fields public, it must be done explicitly for each field.
+- Making an enum public makes all variants public.
+- Use the `use` keyword to bring an identifier into  scope: `use crate::module1::sub1::Type1;`, then refer
+    to `Type1` within the scope instead of using the long path. Identifier is visible only in the current
+    scope, it is not visible in inner scopes. Privacy rules apply.
+- The `crate` "module" is the fictitious root module that represents the current crate, and it sits at
+    the root of the module tree when referring to an identifier from the current create by its absolute path.
+    When referring to an identifier from another crate, path starts with the actual name of the crate.
+- Paths can be relative, in which case they start with `self`, `super` or an identifier from the current
+    module.
+- Rust standard library is a crate called `std`, e.g.: `use std::collections::HashMap;`.
+- Use `use` with `as` to define an alias: `use std::io::Result as IoResult;`.
+- Use nested paths to combine imports: `use std::io::{self, Write};`.
+- Use the glob operator to bring all public paths into scope: `use std::collections::*;`.
+- Use `pub use` to re-export an identifiers from some child module in this module:
+    `pub use crate::mod1::doSomething;`.
 
 ## Collections
 
