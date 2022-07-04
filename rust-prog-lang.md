@@ -139,25 +139,23 @@
 - Rust installation and upgrade tool: `rustup`.
 - Compiler: `rustc`.
 - Advanced build system and package manager: `cargo`.
-- The module system includes concepts such as scope, packages, crates, modules, paths etc.
+- The module system includes concepts such as scope, packages, crates, modules, paths, etc.
 - The module system is closely tied to the `cargo` build system.
 - Package consists of one or more crates and a `Cargo.toml` crate descriptor.
 - Crate can be built into a binary executable (contain the `main` function) or into a library.
 - Package can contain at most one library crate.
-- Crate root is a source file that the compiler starts from and makes up the root module of the create.
+- Crate root is a source file that the compiler starts from and makes up the root module of the crate.
 - By convention, `src/main.rs` is the crate root of the binary crate that has tha same name as the package.
 - By convention, `src/lib.rs` is the crate root of the library crate that has tha same name as the package.
 - Package can have multiple binary crates by placing files in the `src/bin` directory, each file
     will be a crate root for a separate binary crate.
-- Modules let the programmer control the organization, scope and privacy of paths.
+- Modules let the programmer control the organization, scope and privacy of code.
 - To declare a module `module1`, in the crate root use `mod module1;` / `mod module1 {}`
     The compiler will look for module code in three places: 1) inline, in the block of code following the
-    declaration, 2) in `src/module1.rs`, 3) in `src/module1/mod.rs`. 
-- To declare a submodule `sub1`, in any file other than the crate root use `mod sub1;` / `mod sub1 {}`.
+    declaration, 2) in `src/module1.rs`, 3) in `src/module1/mod.rs` (deprecated). 
+- To declare a submodule `sub1`, in any file that belongs to `module1` use `mod sub1;` / `mod sub1 {}`.
     The compiler will look for code in three places: 1) inline, in the block of code following the
-    declaration, 2) in `src/module1/sub1.rs`, 3) in `src/module1/sub1/mod.rs`.
-- Declaring a module once, somewhere in the module tree, is enough for the compiler to know that that
-    module needs to be built.
+    declaration, 2) in `src/module1/sub1.rs`, 3) in `src/module1/sub1/mod.rs` (deprecated).
 - Path is a full name of an identifier, e.g. type, for example: `crate::module1::sub1::Type1`.
 - All identifiers in a module are private from it's parent module's perspective, and cannot be accessed
     with its path by default. However, identifiers in a parent module are accessible by default from
@@ -180,7 +178,10 @@
 - Use nested paths to combine imports: `use std::io::{self, Write};`.
 - Use the glob operator to bring all public paths into scope: `use std::collections::*;`.
 - Use `pub use` to re-export an identifiers from some child module in this module:
-    `pub use crate::mod1::doSomething;`.
+    `pub use crate::module1::doSomething;`.
+- Declaring a module once, somewhere in the module tree, is enough for the compiler to know that that
+    module needs to be built, there is no need to declare the module in every file in which the module
+    will be referenced.
 
 ## Collections
 
