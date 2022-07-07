@@ -2,7 +2,9 @@
 
 - Compiled, statically typed language.
 - Expression-based language.
-- No concept of a null value exists in the language.
+- Offers strong memory safety guarantees.
+- Supports some functional and OOP constructs.
+- The concept of a null value does not exist.
 
 ## Common Programming Concepts
 
@@ -183,8 +185,24 @@
     module needs to be built, there is no need to declare the module in every file in which the module
     will be referenced.
 
-## Error Handling
-- TODO
+## Error Handling and Debugging
+
+- The concept of exceptions does not exist.
+- Recoverable and unrecoverable errors (result in program being stopped).
+- Use the `panic!` macro to print a failure message, unwind the stack and stop the program.
+- Add `panic = abort` to the `[profile]` section in `Cargo.toml` to compile the binary to
+    abort immediately instead of doing the stack unwind when `panic!` occurs.
+- Set environment variable `RUST_BACKTRACE` to anything other than `0` for `panic!` to print
+    the stack trace as well (debugging symbols are needed).
+- Use the `Result<T, E>` generic enum provided by the standard library, and included in
+    the prelude, to hold either a result type object or an error type object, associated
+    with the `Ok` and `Err` enum variants, respectively. Combines well with pattern matching.
+- Use the `?` unary operator on a `Result<T, E>` operand to either evaluate to the `T` value,
+    in case of the `Ok` variant, or to break out of the function and return the `Err` variant
+    holding the `E` value, in case of the `Err` variant. Function's return type must be
+    `Result` with the error type `E` or a type to which `E` can be converted.
+- The `?` operator can also be used with the `Option<T>` enum (or any other type that implements
+    the `FromResidual` trait).
 
 ## Generic Types and Traits
 - Use `<` and `>` to declare generic functions: `fn largest<T>(list: &[T]) -> T {}`.
@@ -217,15 +235,15 @@
     constraints in the compiler.
 - Use trait bounds to conditionally implement methods for only a subset of types:
     `impl<T: Display + PartialOrd> Point<T> {}`.
-- Use trait bounds to conditionally implement a trait for more than one type (blanked implementations): 
-    `impl<T: Display> ToString for T {}`, a feature extensively used in the Rust standard library. The `ToString`
-    trait, for example, enables code such as `let s = 3.to_string();`.
+- Use trait bounds to conditionally implement a trait for more than one type (blanked implementations for
+    a generic type `T`): `impl<T: Display> ToString for T {}`, a feature extensively used in the Rust standard
+    library. The `ToString` trait, for example, enables code such as `let s = 3.to_string();`.
 
 ## Lifetimes
 
 ## Input/Output
 
-## Iterators and Closures
+## Functional Programming: Iterators and Closures
 
 ## Package Management with Cargo
 
@@ -241,8 +259,4 @@
 
 ## Automated Tests
 
-## Standard Library Minimal Reference
-- `Vec`
-- `String`
-- `HashMap`
-- Traits: `PartialOrd`, `Copy`, `Clone`, `ToString`
+## [Standard Library Minimal Reference](/rust-stdlib-ref.md)
