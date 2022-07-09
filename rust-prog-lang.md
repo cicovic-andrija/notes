@@ -154,7 +154,7 @@
 - Modules let the programmer control the organization, scope and privacy of code.
 - To declare a module `module1`, in the crate root use `mod module1;` / `mod module1 {}`
     The compiler will look for module code in three places: 1) inline, in the block of code following the
-    declaration, 2) in `src/module1.rs`, 3) in `src/module1/mod.rs` (deprecated). 
+    declaration, 2) in `src/module1.rs`, 3) in `src/module1/mod.rs` (deprecated).
 - To declare a submodule `sub1`, in any file that belongs to `module1` use `mod sub1;` / `mod sub1 {}`.
     The compiler will look for code in three places: 1) inline, in the block of code following the
     declaration, 2) in `src/module1/sub1.rs`, 3) in `src/module1/sub1/mod.rs` (deprecated).
@@ -241,6 +241,37 @@
 
 ## Lifetimes
 
+- Runtime guarantees that all references refer to valid data.
+- Lifetimes are generic parameters that ensure references are valid as long as they are needed.
+- Every reference has a life time - the scope for which that reference is valid.
+- Lifetimes can be, and usually are, implicit and inferred.
+- Lifetime annotations, usually called just lifetimes (which is just creating confusion)
+    describe the relationship of the life times of multiple references to each other,
+    without actually affecting life times of those references.
+- Use `'` (apostrophe) to annotate references with lifetimes: `&'a i32`, `&'a mut i32`...
+- Naming convention: lifetimes identifiers are usually with short, often one-character,
+    lowercase names like `'a` or `'b`.
+- References annotated with the same lifetime (e.g. `'a`), must both live as long as
+    that generic lifetime (`'a`).
+- Use generic lifetimes in functions: `fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {}`.
+    This reads as "the returned reference will be valid as long as both references that are
+    passed at the call site are valid". On the call site, generic lifetime `'a` will get
+    the concrete lifetime  that is equal to the smaller lifetime (narrower scope) of the
+    lifetimes of `x` and `y`.
+- Lifetimes are necessary instructions from the programmer that help the compiler's borrow
+    checker to do its job.
+- References that are struct fields must be lifetime-annotated, thus the struct type
+    must have a generic lifetime parameter.
+- _Lifetime elision rules_ - common lifetime usage patterns programmed into the compiler's
+    reference analyzer that enable the compiler to deterministically assign lifetimes to
+    references in certain common cases, without the programmer's input.
+- Use the `&'static` notation to declare that a reference has static lifetime, i.e.
+    the reference _can_ live for the entire duration of the program.
+
+## Automated Tests
+
+-
+
 ## Input/Output
 
 ## Functional Programming: Iterators and Closures
@@ -256,7 +287,5 @@
 ## Patterns and Matching
 
 ## Advanced Rust Features
-
-## Automated Tests
 
 ## [Standard Library Minimal Reference](/rust-stdlib-ref.md)
