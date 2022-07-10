@@ -270,6 +270,9 @@
 
 ## Automated Tests
 
+- Test is a function that's annotated with the `test` attribute: `#[test]`.
+- Use the `panic!` and `assert!` macros to fail and conditionally fail the test, respectively.
+- Use the `assert_eq!` and `assert_ne!` to test equality and non-equality.
 -
 
 ## Input/Output
