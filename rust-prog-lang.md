@@ -185,6 +185,9 @@
     module needs to be built, there is no need to declare the module in every file in which the module
     will be referenced.
 
+## Strings
+- TODO
+
 ## Error Handling and Debugging
 
 - The concept of exceptions does not exist.
@@ -271,11 +274,18 @@
 ## Automated Tests
 
 - Test is a function that's annotated with the `test` attribute: `#[test]`.
-- Use the `panic!` and `assert!` macros to fail and conditionally fail the test, respectively.
-- Use the `assert_eq!` and `assert_ne!` to test equality and non-equality.
--
-
-## Input/Output
+- Use the `panic!`, `assert!`, `assert_eq!`, `assert_ne!` macros to fail and
+    conditionally fail the test.
+- Annotate a test function with the `should_panic` attribute if it is expected
+    for the function to panic (e.g. negative tests): `#[should_panic]`.
+- Tests can return `Result<T, E>`, where `Err` variant indicates test failure.
+- Use `cargo test` command to run tests in various ways (run `cargo test --help`).
+- Messages written to standard output in test functions will not be shown by
+    default when tests are run with `cargo test`.
+- Annotate a test function with the `ignore` attribute to avoid running the
+    test, unless the `--ignored` or `--include-ignored` option is passed to
+    `cargo test`: `#[ignore]`.
+- Rust community usually classifies test either as unit tests or integration tests.
 
 ## Functional Programming: Iterators and Closures
 
@@ -290,5 +300,3 @@
 ## Patterns and Matching
 
 ## Advanced Rust Features
-
-## [Standard Library Minimal Reference](/rust-stdlib-ref.md)
