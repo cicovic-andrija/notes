@@ -4,7 +4,8 @@
 - Expression-based language.
 - Offers strong memory safety guarantees.
 - Supports some functional and OOP constructs.
-- The concept of a null value does not exist.
+- Strives to provide zero-cost abstractions.
+- No concept of null values.
 
 ## Common Programming Concepts
 
@@ -186,7 +187,25 @@
     will be referenced.
 
 ## Strings
-- TODO
+- String represents a UTF-8 encoded sequence of Unicode characters.
+- Strings are implemented as a growable, mutable, owned collection of bytes that can
+    be interpreted as text (type `String` is a wrapper around vector of bytes - `Vec<u8>`).
+- Type `String` is part of the standard library, but string slices, which have
+    alias `str`, are part of the core language.
+- Use the `+` operator to concatenate two `String`s.
+- _Deref coercion_, performed by the compiler, enables transparent conversion from
+    `&str` to `&str[..]`.
+- Use the `format!` macro to make string by formatting values of other types.
+- Type `String` doesn't support indexing because it would be indexing of individual bytes,
+    not characters, and because it would not be a O(1) complexity operation, but O(n).
+- There are three relevant ways (levels) to look at strings:
+    - Strings are byte sequences.
+    - Strings are sequences of scalar values (Unicode Scalar Value characters).
+    - Grapheme clusters - the closest thing to what is commonly known as letters, but not
+        quite the same.
+- Rust provides different ways of interpreting raw byte data stored as part of a string.
+- It is possible to create string slices, but runtime will panic if the slice starts or ends
+    in the middle of a character encoding.
 
 ## Error Handling and Debugging
 
@@ -285,9 +304,52 @@
 - Annotate a test function with the `ignore` attribute to avoid running the
     test, unless the `--ignored` or `--include-ignored` option is passed to
     `cargo test`: `#[ignore]`.
-- Rust community usually classifies test either as unit tests or integration tests.
+- Annotate a module with `#[cfg(test)]` to only build the module when running
+    tests with `cargo` (when module is part of a crate, e.g. for unit tests).
+- Create the `tests` directory next to the `src` directory in the project root
+    for integration tests; no need to annotate test modules in this case.
+- Each file in the `tests` directory will be compiled as a separate crate.
+- To use submodules in the `tests` directory (e.g. code sharing), place them in
+    `tests/{submodule-name}/mod.rs`.
 
-## Functional Programming: Iterators and Closures
+## Functional Programming: Closures
+
+- Closures are anonymous functions that can be saved in a variable or passed
+    as arguments to other functions, with the ability to capture values
+    from the scope in which they're defined.
+- Use the `| {param-list} | { {body} }` notation to define closures.
+- If closure body consists of one expression, block braces can be omitted.
+- Values can be captured by taking ownership, borrowing and borrowing mutably,
+    based on the way value is used in the closure body. Borrowing happens
+    at the point of closure definition, and ends after the last closure call.
+- Use the `move` keyword before the parameter list to force taking ownership
+    of captured values instead of borrowing.
+- `Fn` traits (3) enforce the rules of what closure can do with the caputed values,
+    and closures can implement one, two or all three of the `Fn` traits in additive fashion:
+    - `FnOnce` trait applies to closures that can be called at least once, which is true for
+        all closures, however, if the closure doesn't implement any other `Fn` trait, it can then
+        be called at most once (this is because such closures take ownership of at least one
+        value from their environment).
+    - `FnMut` applies to closures that dont move captured values out of their body, but they
+        do mutate captured values, and these closures can be called more than once.
+    - `Fn` applies to closures that don't move captured values out of the body and don't mutate
+        captured values, and these closures can be called more than once without mutating their
+        environment (important in concurrent programming).
+- Functions can also satisfy `Fn` traits in cases where nothing needs to be captured from the
+    environment.
+
+## Functional Programming: Iterators
+
+- Use iterator to perform a task on a sequence of items in turn.
+- Iterators are lazy, they have no effect until a method that consumes them is called.
+- All iterators implement the `Iterator` trait from the standard library that declares that
+    the method `next` must be implemented to return the next item in the sequence.
+- Use `iter` (returns references), `into_iter` (returns owned values), `iter_mut` (returns
+    mutable references) to create iterators for standard library types.
+- _Consuming adaptors_ are functions that take ownership of iterators and use them up by
+    repeatedly calling the `next` method to use up the next item.
+- _Iterator adaptors_ are functions that take ownership of iterators and produce other iterators
+    with some specific behavior.
 
 ## Package Management with Cargo
 
