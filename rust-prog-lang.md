@@ -1,3 +1,11 @@
+This article contains the notes taken while reading "The Rust Programming
+Language" book. It doesn't cover the whole book, but rather the first
+half which describes common programming concepts and idioms of Rust.
+Later chapters, which describe the concurrency model, smart pointers, and
+other advanced topics, are not included here because they deal with more
+specialized areas of programming, require previous knowledge of the area,
+and due to their complexity don't work well with the format presented here.
+
 ## About Rust
 
 - Compiled, statically typed language.
@@ -350,15 +358,3 @@
     repeatedly calling the `next` method to use up the next item.
 - _Iterator adaptors_ are functions that take ownership of iterators and produce other iterators
     with some specific behavior.
-
-## Package Management with Cargo
-
-## Smart Pointers
-
-## Concurrency
-
-## OOP Features
-
-## Patterns and Matching
-
-## Advanced Rust Features
