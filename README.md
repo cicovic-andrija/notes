@@ -7,7 +7,7 @@ Notes taken from technical books, documentation resources, white papers and pers
 | Book Title | Where to start |
 | ---------- | -------------- |
 | The Rust Programming Language | [link](/rust-prog-lang.md) |
-| Windows Internals, Seventh Edition, Part 1 | [link](/windows-internals-1.md) |
+| Windows Internals | [link](/windows-internals-1.md) |
 
 ## Read online
 
