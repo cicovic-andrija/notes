@@ -1,10 +1,14 @@
 This article contains the notes taken while reading "The Rust Programming
 Language" book. It doesn't cover the whole book, but rather the first
-half which describes common programming concepts and idioms of Rust.
-Later chapters, which describe the concurrency model, smart pointers, and
-other advanced topics, are not included here because they deal with more
-specialized areas of programming, require previous knowledge of the area,
-and due to their complexity don't work well with the format presented here.
+half which describes common programming concepts and idioms of Rust. This
+article can be viewed as a quick-and-dirty reference for some of the topics
+covered in the book.
+Later chapters, which describe the concurrency model, low-level programming,
+and other advanced topics, are not included here because they deal with more
+specialized technical areas, require previous knowledge in these areas,
+and due to their complexity don't work well with the format used here.
+At the time of writing, the complete book is available for reading online on
+the [Rust website](https://doc.rust-lang.org/stable/book/).
 
 ## About Rust
 
