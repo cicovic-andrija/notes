@@ -1,13 +1,13 @@
 # Notes
 
-Notes taken from technical books, documentation resources, white papers and personal experience.
+Notes taken from technical books, documentation resources and white papers.
 
 ## Notes taken from technical books
 
 | Book Title | Where to start |
 | ---------- | -------------- |
-| The Rust Programming Language | [link](/rust-prog-lang.md) |
-| Windows Internals | [link](/windows-internals-1.md) |
+| The Rust Programming Language | [Link to article](/rust-prog-lang.md) |
+| Windows Internals | [Link to article](/windows-internals-1.md) |
 
 ## Read online
 
